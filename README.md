@@ -205,7 +205,7 @@ Sunucunuz artık **`serifselen.local`** etki alanında bir **Domain Controller**
 
 | Özellik | Değer |
 |--------|-------|
-| **Yazar** | Serif SELEN |
+| **Yazar** | Serif Belen |
 | **Tarih** | 2 Kasım 2025 |
 | **Platform** | VMware Workstation Pro 17 |
 | **İşletim Sistemi** | Windows Server 2025 Standard Evaluation |
