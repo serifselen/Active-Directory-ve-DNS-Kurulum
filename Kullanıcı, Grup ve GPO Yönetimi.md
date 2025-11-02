@@ -655,10 +655,5 @@ Get-GPO -All | Sort-Object -Property DisplayName | ForEach-Object {
 
 > ⚠️ **UYARI:** Bu doküman **eğitim ve test ortamları** için hazırlanmıştır. Üretim sistemlerinde lisanslı yazılımlar ve resmi Microsoft belgeleri kullanılmalıdır.
 
-> 📧 **Destek İçin:** [serif.selen@outlook.com](mailto:serif.selen@outlook.com)  
+> 📧 **Destek İçin:** [mserifselen@gmail.com](mailto:mserifselen@gmail.com)  
 > 🔗 **GitHub Repository:** [https://github.com/serifselen/Active-Directory-ve-DNS-Kurulum](https://github.com/serifselen/Active-Directory-ve-DNS-Kurulum)
-
-```markdown
-[![Creative Commons License](https://i.creativecommons.org/l/by-nc-sa/4.0/88x31.png)](http://creativecommons.org/licenses/by-nc-sa/4.0/)
-This work is licensed under a Creative Commons Attribution-NonCommercial-ShareAlike 4.0 International License.
-```
