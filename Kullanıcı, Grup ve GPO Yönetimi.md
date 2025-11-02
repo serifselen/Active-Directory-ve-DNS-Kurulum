@@ -7,21 +7,32 @@ Bu rehber, Windows Server 2025 Standard Evaluation sistemine Active Directory Do
 
 ## 📑 İçindekiler
 
-- [Adım 1: Server Manager Ana Ekranı](#adım-1-server-manager-ana-ekranı)
-- [Adım 2: "Add Roles and Features Wizard" Başlatma](#adım-2-add-roles-and-features-wizard-başlatma)
-- [Adım 3: Kurulum Türü Seçimi](#adım-3-kurulum-türü-seçimi)
-- [Adım 4: Hedef Sunucu Seçimi](#adım-4-hedef-sunucu-seçimi)
-- [Adım 5: Active Directory Domain Services Rolü Seçimi](#adım-5-active-directory-domain-services-rolü-seçimi)
-- [Adım 6: Deployment Configuration – Yeni Orman Oluşturma](#adım-6-deployment-configuration--yeni-orman-oluşturma)
-- [Adım 7: Domain Controller Seçenekleri](#adım-7-domain-controller-seçenekleri)
-- [Adım 8: Ön Koşul Denetimi](#adım-8-ön-koşul-denetimi)
-- [Adım 9: Kurulum İlerleme Durumu](#adım-9-kurulum-ilerleme-durumu)
-- [Adım 10: Post-deployment Yapılandırma Uyarısı](#adım-10-post-deployment-yapılandırma-uyarısı)
-- [Active Directory Yönetimi](#active-directory-yönetimi)
-- [Kurulum Sonrası Öneriler](#kurulum-sonrası-öneriler)
-- [En İyi Uygulamalar](#en-i̇yi-uygulamalar)
-- [Yaygın PowerShell Komutları](#yaygın-powershell-komutları)
-- [Doküman Bilgileri](#doküman-bilgileri)
+- [AD DS Kurulum Adımları](#-ad-ds-kurulum-adımları)
+  - [Adım 1: Server Manager Ana Ekranı](#adım-1-server-manager-ana-ekranı)
+  - [Adım 2: "Add Roles and Features Wizard" Başlatma](#adım-2-add-roles-and-features-wizard-başlatma)
+  - [Adım 3: Kurulum Türü Seçimi](#adım-3-kurulum-türü-seçimi)
+  - [Adım 4: Hedef Sunucu Seçimi](#adım-4-hedef-sunucu-seçimi)
+  - [Adım 5: Active Directory Domain Services Rolü Seçimi](#adım-5-active-directory-domain-services-rolü-seçimi)
+  - [Adım 6: Deployment Configuration – Yeni Orman Oluşturma](#adım-6-deployment-configuration--yeni-orman-oluşturma)
+  - [Adım 7: Domain Controller Seçenekleri](#adım-7-domain-controller-seçenekleri)
+  - [Adım 8: Ön Koşul Denetimi](#adım-8-ön-koşul-denetimi)
+  - [Adım 9: Kurulum İlerleme Durumu](#adım-9-kurulum-ilerleme-durumu)
+  - [Adım 10: Post-deployment Yapılandırma Uyarısı](#adım-10-post-deployment-yapılandırma-uyarısı)
+- [Active Directory Yönetimi](#-active-directory-yönetimi)
+  - [Adım 11: Windows Tools ve Active Directory Araçlarına Erişim](#adım-11-windows-tools-ve-active-directory-araçlarına-erişim)
+  - [Adım 12: Active Directory Users and Computers Arayüzü](#adım-12-active-directory-users-and-computers-arayüzü)
+  - [Adım 13: Yeni Öğe Oluşturma Menüsü](#adım-13-yeni-öğe-oluşturma-menüsü)
+  - [Adım 14: İlk Organizational Unit (OU) Oluşturma](#adım-14-i̇lk-organizational-unit-ou-oluşturma)
+  - [Adım 15: Alt Organizational Unit Oluşturma](#adım-15-alt-organizational-unit-oluşturma)
+  - [Adım 16: Detaylı OU Yapısı ve Departman Organizasyonu](#adım-16-detaylı-ou-yapısı-ve-departman-organizasyonu)
+  - [Adım 17-18: Güvenlik Grubu Oluşturma](#adım-17-18-güvenlik-grubu-oluşturma)
+  - [Adım 19-21: Kullanıcı Hesabı Oluşturma](#adım-19-21-kullanıcı-hesabı-oluşturma)
+  - [Adım 22-23: Gruba Üye Ekleme](#adım-22-23-gruba-üye-ekleme)
+  - [Adım 24: Group Policy Management Konsolu](#adım-24-group-policy-management-konsolu)
+- [Kurulum Sonrası Öneriler](#-kurulum-sonrası-öneriler)
+- [En İyi Uygulamalar](#-en-i̇yi-uygulamalar)
+- [Yaygın PowerShell Komutları](#-yaygın-powershell-komutları)
+- [Doküman Bilgileri](#-doküman-bilgileri)
 
 ---
 
@@ -40,6 +51,8 @@ seçenekleri yer alır.
 
 ✅ AD DS kurulumuna başlamak için **"Add roles and features"** bağlantısına tıklayın.
 
+[⬆️ İçindekilere Dön](#-i̇çindekiler)
+
 ---
 
 ### Adım 2: "Add Roles and Features Wizard" Başlatma
@@ -53,6 +66,8 @@ seçenekleri yer alır.
 
 💡 Bu sayfa yalnızca bilgilendiricidir. **Next** butonuna tıklayarak devam edin.
 
+[⬆️ İçindekilere Dön](#-i̇çindekiler)
+
 ---
 
 ### Adım 3: Kurulum Türü Seçimi
@@ -65,6 +80,8 @@ seçenekleri yer alır.
 
 ✅ **"Role-based or feature-based installation"** seçeneğini işaretleyin. Bu, sunucuya roller eklemek için kullanılır.  
 **Next** butonuna tıklayın.
+
+[⬆️ İçindekilere Dön](#-i̇çindekiler)
 
 ---
 
@@ -80,6 +97,8 @@ seçenekleri yer alır.
 gibi bilgiler görüntülenir.
 
 ✅ Kurulum yapılacak sunucu zaten seçili gelir. Doğru sunucuyu seçtiğinizden emin olduktan sonra **Next** butonuna tıklayın.
+
+[⬆️ İçindekilere Dön](#-i̇çindekiler)
 
 ---
 
@@ -98,6 +117,8 @@ Sistem, bu rol için gerekli yönetim araçlarını önerir:
 ✅ **"Include management tools (if applicable)"** seçeneği otomatik işaretlenir.  
 Açılan pencerede **Add Features** butonuna tıklayıp **Next** butonuna geçin.
 
+[⬆️ İçindekilere Dön](#-i̇çindekiler)
+
 ---
 
 ### Adım 6: Deployment Configuration – Yeni Orman Oluşturma
@@ -113,6 +134,8 @@ AD DS kurulumu tamamlandıktan sonra **"Promote this server to a domain controll
 - DNS sunucusu ayarlarını kontrol edin
 
 **Next** butonuna tıklayın.
+
+[⬆️ İçindekilere Dön](#-i̇çindekiler)
 
 ---
 
@@ -130,6 +153,8 @@ AD DS kurulumu tamamlandıktan sonra **"Promote this server to a domain controll
 🔒 DSRM (Directory Services Restore Mode) şifresi, acil durum kurtarma modu için gereklidir.  
 **Next** butonuna tıklayın.
 
+[⬆️ İçindekilere Dön](#-i̇çindekiler)
+
 ---
 
 ### Adım 8: Ön Koşul Denetimi
@@ -143,6 +168,8 @@ uyarıları görüntülenir.
 
 ⚠️ "A delegation for this DNS server cannot be created…" uyarısı, mevcut bir DNS altyapısı yoksa **ihmal edilebilir**.  
 **Install** butonuna tıklayarak kurulumu başlatın.
+
+[⬆️ İçindekilere Dön](#-i̇çindekiler)
 
 ---
 
@@ -159,6 +186,8 @@ uyarıları görüntülenir.
 
 🔄 Kurulum tamamlandığında sunucu **otomatik olarak yeniden başlatılır**.
 
+[⬆️ İçindekilere Dön](#-i̇çindekiler)
+
 ---
 
 ### Adım 10: Post-deployment Yapılandırma Uyarısı
@@ -174,11 +203,7 @@ Sunucu yeniden başladığında Server Manager dashboard'unda sağ üst köşede
 ✅ Bu uyarı, AD DS yapılandırmasının tamamlanmadığını gösterir.  
 Bağlantıya tıklayarak yapılandırmayı tamamlayabilir veya komut satırından `dcpromo` ile devam edebilirsiniz.
 
----
-
-## 🎉 Kurulum Tamamlandı!
-
-Sunucunuz artık **serifselen.local** etki alanında bir **Domain Controller** olarak çalışmaktadır. **DNS Server** hizmeti de otomatik olarak yapılandırılmıştır.
+[⬆️ İçindekilere Dön](#-i̇çindekiler)
 
 ---
 
@@ -198,6 +223,8 @@ Active Directory yönetim araçlarına erişmek için Windows Tools klasörünü
 3. **Server Manager**: Tools menüsünden erişim
 
 ✅ **Active Directory Users and Computers** seçeneğine tıklayarak devam edin.
+
+[⬆️ İçindekilere Dön](#-i̇çindekiler)
 
 ---
 
@@ -220,6 +247,8 @@ ADUC konsolu açıldığında varsayılan yapı görüntülenir:
 
 💡 Bu varsayılan container'lar silinemez ve taşınamaz. Yeni organizasyon yapısı için **Organizational Unit (OU)** oluşturmanız önerilir.
 
+[⬆️ İçindekilere Dön](#-i̇çindekiler)
+
 ---
 
 ### Adım 13: Yeni Öğe Oluşturma Menüsü
@@ -235,6 +264,8 @@ Domain üzerine sağ tıklayarak yeni nesneler oluşturabilirsiniz:
 - 💻 **Computer** ← Bilgisayar hesabı
 
 ✅ Yeni bir organizasyon yapısı oluşturmak için **New > Organizational Unit** seçeneğini kullanın.
+
+[⬆️ İçindekilere Dön](#-i̇çindekiler)
 
 ---
 
@@ -253,6 +284,8 @@ Domain üzerine sağ tıklayarak yeni nesneler oluşturabilirsiniz:
 - **Üretim ortamlarında mutlaka işaretlenmelidir**
 
 ✅ OU adını girin, koruma seçeneğini işaretleyin ve **OK** butonuna tıklayın.
+
+[⬆️ İçindekilere Dön](#-i̇çindekiler)
 
 ---
 
@@ -277,6 +310,8 @@ Ana OU altında alt OU'lar oluşturarak hiyerarşik yapı kurun:
 
 ✅ Alt OU adını girin ve **OK** butonuna tıklayın.
 
+[⬆️ İçindekilere Dön](#-i̇çindekiler)
+
 ---
 
 ### Adım 16: Detaylı OU Yapısı ve Departman Organizasyonu
@@ -300,6 +335,8 @@ Selen Holding
 └── Izmir
 ```
 
+[⬆️ İçindekilere Dön](#-i̇çindekiler)
+
 ---
 
 ### Adım 17-18: Güvenlik Grubu Oluşturma
@@ -318,6 +355,8 @@ Selen Holding
 | **Domain Local** | Herhangi bir domain | Sadece kendi domain'inde |
 | **Global** | Sadece kendi domain'inden | Herhangi bir domain'de |
 | **Universal** | Herhangi bir domain'den | Herhangi bir domain'de |
+
+[⬆️ İçindekilere Dön](#-i̇çindekiler)
 
 ---
 
@@ -339,6 +378,8 @@ Selen Holding
 - 3 farklı karakter türü (büyük, küçük, rakam, özel karakter)
 - Sözlükte olmayan
 
+[⬆️ İçindekilere Dön](#-i̇çindekiler)
+
 ---
 
 ### Adım 22-23: Gruba Üye Ekleme
@@ -352,6 +393,8 @@ Selen Holding
 4. **OK** butonuna tıklayarak ekleyin
 
 ✅ Kullanıcı artık Finance grubunun üyesidir.
+
+[⬆️ İçindekilere Dön](#-i̇çindekiler)
 
 ---
 
@@ -367,6 +410,8 @@ Selen Holding
 - **Lokasyon OU'ları:** Bölgeye özel ayarlar
 - **Departman OU'ları:** Departmana özel politikalar
 - **Kullanıcı/Bilgisayar OU'ları:** Kullanıcı veya bilgisayara özel ayarlar
+
+[⬆️ İçindekilere Dön](#-i̇çindekiler)
 
 ---
 
@@ -401,6 +446,8 @@ Selen Holding
   - TCP 445 (SMB)
   - TCP 3268-3269 (Global Catalog)
 
+[⬆️ İçindekilere Dön](#-i̇çindekiler)
+
 ---
 
 ## 💡 En İyi Uygulamalar
@@ -429,6 +476,8 @@ Selen Holding
 - Her GPO'nun tek bir amacı olmalı
 - Açıklayıcı isimler kullanın (Örn: "Security - Password Policy")
 - Test ortamında deneyin
+
+[⬆️ İçindekilere Dön](#-i̇çindekiler)
 
 ---
 
@@ -480,6 +529,8 @@ New-GPLink -Target "OU=Computers,OU=Istanbul,OU=Selen Holding,DC=serifselen,DC=l
 Get-GPO -All | Select-Object DisplayName, Owner, CreationTime
 ```
 
+[⬆️ İçindekilere Dön](#-i̇çindekiler)
+
 ---
 
 ## 📜 Doküman Bilgileri
@@ -498,3 +549,5 @@ Get-GPO -All | Select-Object DisplayName, Owner, CreationTime
 
 > 📧 **Destek İçin**: [mserifselen@gmail.com](mailto:mserifselen@gmail.com)  
 > 🔗 **GitHub Repository**: [https://github.com/serifselen/Active-Directory-ve-DNS-Kurulum]
+
+[⬆️ İçindekilere Dön](#-i̇çindekiler)
