@@ -439,7 +439,6 @@ Tam bir organizasyon yapısı oluşturduktan sonra ADUC şu şekilde görünür:
 ### Adım 19: Gruba Üye Ekleme
 
 ![Adım 22](Images/22.png)
-![Adım 23](Images/23.png)
 
 #### Üye Ekleme Adımları:
 
@@ -464,6 +463,7 @@ Select-Object Name, SamAccountName, ObjectClass
 
 ### Adım 20: Group Policy Yönetim Konsolu
 
+![Adım 23](Images/23.png)
 ![Adım 24](Images/24.png)
 
 **Group Policy Management (GPM)** konsolu, GPO'ları merkezi olarak yönetmenizi sağlar.
