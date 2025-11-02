@@ -344,7 +344,6 @@ Selen Holding
 ### Adım 22-23: Gruba Üye Ekleme
 
 ![Adım 22](Images/22.png)
-![Adım 23](Images/23.png)
 
 **Finance Properties - Members Sekmesi:**
 1. **Add...** butonuna tıklayın
@@ -358,6 +357,7 @@ Selen Holding
 
 ### Adım 24: Group Policy Management Konsolu
 
+![Adım 23](Images/23.png)
 ![Adım 24](Images/24.png)
 
 **Group Policy Management** konsolu, GPO'ları merkezi olarak yönetmenizi sağlar:
