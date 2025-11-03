@@ -634,8 +634,6 @@ DNS Manager'da sağ tık menüsünden erişilebilen temel seçenekler:
 
 #### DNS Zone Yönetimi:
 
-![DNS Zone Yönetimi](Images/28.png)
-
 - **Forward Lookup Zones**: İsimden IP'ye çözümleme
 - **Reverse Lookup Zones**: IP'den isme çözümleme
 - **Trust Points**: Güvenilir DNS ilişkileri
