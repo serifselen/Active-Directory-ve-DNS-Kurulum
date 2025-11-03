@@ -31,6 +31,10 @@ Bu rehber, Windows Server 2025 Standard Evaluation sistemine Active Directory Do
   - [Adım 22-23: Gruba Üye Ekleme](#adım-22-23-gruba-üye-ekleme)
   - [Adım 24: Group Policy Management Konsolu](#adım-24-group-policy-management-konsolu)
 - [DNS Kayıt Oluşturma](#-dns-kayıt-oluşturma)
+  - [Adım 25: Kullanıcı Hesabı Oluşturma](#adım-25-dns-managera-erişim)
+  - [Adım 26: Gruba Üye Ekleme](#adım-26-yeni-host-a-kaydı-oluşturma)
+  - [Adım 27: Group Policy Management Konsolu](#adım-27-host-kayıt-bilgilerini-girme)
+  - [Adım 28: Group Policy Management Konsolu](#adım-28-oluşturulan-dns-kaydını-doğrulama)
 - [Kurulum Sonrası Öneriler](#-kurulum-sonrası-öneriler)
 - [En İyi Uygulamalar](#-en-i̇yi-uygulamalar)
 - [PowerShell ile Otomasyon](#-powershell-ile-otomasyon)
@@ -663,7 +667,7 @@ Backup-GPO -Name "Security - Workstation Policy" -Path "C:\GPOBackup"
 
 ### Adım 25: DNS Manager'a Erişim
 
-![DNS Manager](Images/dns_manager.png)
+![DNS Manager](Images/25.png)
 
 **DNS Manager Arayüzü:**
 - Sol panelde `Forward Lookup Zones` altında `serifselen.local` bölgesi bulunur.
@@ -676,7 +680,7 @@ Backup-GPO -Name "Security - Workstation Policy" -Path "C:\GPOBackup"
 
 ### Adım 26: Yeni Host (A) Kaydı Oluşturma
 
-![New Host Menu](Images/new_host_menu.png)
+![New Host Menu](Images/26.png)
 
 **Yeni Kayıt Oluşturma:**
 1. `serifselen.local` bölgesine sağ tıklayın.
@@ -688,7 +692,7 @@ Backup-GPO -Name "Security - Workstation Policy" -Path "C:\GPOBackup"
 
 ### Adım 27: Host Kayıt Bilgilerini Girme
 
-![New Host Dialog](Images/new_host_dialog.png)
+![New Host Dialog](Images/27.png)
 
 **Kayıt Detayları:**
 - **Name**: `web` (Ana bilgisayar adı)
@@ -702,7 +706,7 @@ Backup-GPO -Name "Security - Workstation Policy" -Path "C:\GPOBackup"
 
 ### Adım 28: Oluşturulan DNS Kaydını Doğrulama
 
-![DNS Records](Images/dns_records.png)
+![DNS Records](Images/25.png)
 
 **Kayıt Doğrulama:**
 - `serifselen.local` bölgesi altında yeni `Host (A)` kaydı (`web`) listelenir.
