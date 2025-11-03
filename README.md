@@ -19,7 +19,13 @@ Bu rehber, Windows Server 2025 Standard Evaluation sistemine Active Directory Do
   - [Adım 8: Ön Koşul Denetimi](#adım-8-ön-koşul-denetimi)
   - [Adım 9: Kurulum İlerleme Durumu](#adım-9-kurulum-ilerleme-durumu)
   - [Adım 10: Post-deployment Yapılandırma Uyarısı](#adım-10-post-deployment-yapılandırma-uyarısı)
-- [Active Directory Yönetimi](#-active-directory-yönetimi)
+- [🌐 DNS Yapılandırması ve Yönetimi](#-dns-yapılandırması-ve-yönetimi)
+  - [DNS Manager Arayüzüne Erişim](#dns-manager-arayüzüne-erişim)
+  - [Forward Lookup Zone Yapılandırması](#forward-lookup-zone-yapılandırması)
+  - [Reverse Lookup Zone Yapılandırması](#reverse-lookup-zone-yapılandırması)
+  - [Yeni DNS Kayıtları Ekleme](#yeni-dns-kayıtları-ekleme)
+  - [PowerShell ile DNS Yönetimi](#powershell-ile-dns-yönetimi)
+- [📂 Active Directory Yönetimi](#-active-directory-yönetimi)
   - [Adım 11: Windows Tools ve Active Directory Araçlarına Erişim](#adım-11-windows-tools-ve-active-directory-araclarına-erişim)
   - [Adım 12: Active Directory Users and Computers Arayüzü](#adım-12-active-directory-users-and-computers-arayüzü)
   - [Adım 13: Yeni Öğe Oluşturma Menüsü](#adım-13-yeni-öğe-oluşturma-menüsü)
@@ -313,6 +319,141 @@ Resolve-DnsName "serifselen.local"
 
 # LDAP bağlantı testi
 Get-ADDomain -Server $env:COMPUTERNAME
+```
+
+---
+
+## 🌐 DNS Yapılandırması ve Yönetimi
+
+### DNS Manager Arayüzüne Erişim
+
+![DNS Manager](Images/25.png)
+
+**DNS Manager Bileşenleri:**
+- **Forward Lookup Zones**: İsimden IP'ye çözümleme
+- **Reverse Lookup Zones**: IP'den isme çözümleme
+- **Conditional Forwarders**: Özel domain yönlendirmeleri
+- **Trust Points**: DNSSEC güven noktaları
+
+**DNS Zone Türleri:**
+- **Primary Zone**: Okuma/yazma yetkili bölge
+- **Secondary Zone**: Salt okunur kopya bölge
+- **Stub Zone**: Sadece NS kayıtlarını içeren bölge
+
+**PowerShell ile DNS Yönetimi:**
+```powershell
+# DNS Server rolünü kontrol et
+Get-WindowsFeature -Name DNS | Select-Object Name, InstallState
+
+# DNS zone'larını listele
+Get-DnsServerZone | Select-Object ZoneName, ZoneType, IsAutoCreated
+```
+
+### Forward Lookup Zone Yapılandırması
+
+**Zone Özellikleri:**
+- **Zone Name**: serifselen.local
+- **Zone Type**: Active Directory-Integrated
+- **Replication**: Tüm DNS sunucularına replikasyon
+
+**Teknik Detaylar:**
+- **SOA Record**: Start of Authority, zone yetki bilgileri
+- **NS Records**: Name Server, DNS sunucu listesi
+- **A Records**: Host adres kayıtları
+- **CNAME Records**: Takma ad kayıtları
+- **MX Records**: Mail exchange kayıtları
+
+### Reverse Lookup Zone Yapılandırması
+
+![DNS Update](Images/26.png)
+
+**Reverse Zone Oluşturma:**
+```powershell
+# Reverse lookup zone oluşturma
+Add-DnsServerPrimaryZone -NetworkID "192.168.31.0/24" -ReplicationScope "Forest"
+
+# PTR kayıtlarını otomatik oluşturma
+Set-DnsServerGlobalNameZone -EnableAutoCreation $true
+```
+
+### Yeni DNS Kayıtları Ekleme
+
+![New Host](Images/27.png)
+
+**Host (A) Kaydı Ekleme:**
+- **Name**: web (otomatik olarak web.serifselen.local olur)
+- **FQDN**: web.serifselen.local.
+- **IP Address**: 192.168.31.200
+- **Create associated pointer (PTR) record**: Reverse zone'a otomatik kayıt
+
+**PowerShell ile DNS Kaydı Ekleme:**
+```powershell
+# A kaydı ekleme
+Add-DnsServerResourceRecordA -Name "web" -ZoneName "serifselen.local" -IPv4Address "192.168.31.200" -CreatePtr
+
+# CNAME kaydı ekleme
+Add-DnsServerResourceRecordCName -Name "www" -ZoneName "serifselen.local" -HostNameAlias "web.serifselen.local"
+
+# MX kaydı ekleme
+Add-DnsServerResourceRecordMX -Name "@" -ZoneName "serifselen.local" -MailExchange "mail.serifselen.local" -Preference 10
+```
+
+**Diğer DNS Kayıt Türleri:**
+```powershell
+# SRV kaydı ekleme (LDAP için)
+Add-DnsServerResourceRecord -ZoneName "serifselen.local" -SRV -Name "_ldap._tcp" -DomainName "domain.serifselen.local" -Port 389 -Priority 0 -Weight 100
+
+# TXT kaydı ekleme
+Add-DnsServerResourceRecord -ZoneName "serifselen.local" -TXT -Name "@" -DescriptiveText "v=spf1 mx ~all"
+```
+
+### PowerShell ile DNS Yönetimi
+
+**DNS Server Yapılandırması:**
+```powershell
+# DNS cache temizleme
+Clear-DnsServerCache
+
+# DNS istatistiklerini görüntüleme
+Get-DnsServerStatistics
+
+# Zone transfer ayarları
+Set-DnsServerPrimaryZone -Name "serifselen.local" -SecureSecondaries "TransferToZoneNameServers"
+
+# DNS sunucusu performans sayaçları
+Get-Counter "\DNS\*" -SampleInterval 5 -MaxSamples 3
+```
+
+**DNS Sağlık Kontrolleri:**
+```powershell
+# DNS zone sağlık kontrolü
+Test-DnsServer -IPAddress "192.168.31.100" -ZoneName "serifselen.local"
+
+# DNS çözümleme testi
+Resolve-DnsName "web.serifselen.local" -Server "192.168.31.100"
+
+# DNS replication durumu
+Get-DnsServerZone -ComputerName "DOMAIN" | Where-Object {$_.ZoneType -eq "Primary"}
+```
+
+**Toplu DNS Kaydı Oluşturma:**
+```powershell
+# CSV'den DNS kayıtları içe aktarma
+$DNSRecords = Import-Csv -Path "C:\DNSRecords.csv"
+
+foreach ($Record in $DNSRecords) {
+    switch ($Record.Type) {
+        "A" {
+            Add-DnsServerResourceRecordA -Name $Record.Name -ZoneName $Record.Zone -IPv4Address $Record.IPAddress -CreatePtr:$Record.CreatePtr
+        }
+        "CNAME" {
+            Add-DnsServerResourceRecordCName -Name $Record.Name -ZoneName $Record.Zone -HostNameAlias $Record.Target
+        }
+        "MX" {
+            Add-DnsServerResourceRecordMX -Name $Record.Name -ZoneName $Record.Zone -MailExchange $Record.MailServer -Preference $Record.Preference
+        }
+    }
+}
 ```
 
 ---
@@ -816,3 +957,7 @@ auditpol /set /category:"Logon/Logoff" /success:enable /failure:enable
 
 > 📧 **Destek İçin**: [mserifselen@gmail.com](mailto:mserifselen@gmail.com)  
 > 🔗 **GitHub Repository**: [https://github.com/serifselen/Active-Directory-ve-DNS-Kurulum]
+
+---
+
+**✅ Kurulum Tamamlandı!** Artık Windows Server 2025 üzerinde tam fonksiyonel bir Active Directory Domain Services ve DNS Server ortamına sahipsiniz. Bu rehberdeki adımları takip ederek temel yapılandırmayı tamamladınız ve gelişmiş yönetim araçlarıyla sisteminizi yönetmeye hazırsınız.
