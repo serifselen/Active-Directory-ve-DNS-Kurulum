@@ -30,6 +30,7 @@ Bu rehber, Windows Server 2025 Standard Evaluation sistemine Active Directory Do
   - [Adım 19-21: Kullanıcı Hesabı Oluşturma](#adım-19-21-kullanıcı-hesabı-oluşturma)
   - [Adım 22-23: Gruba Üye Ekleme](#adım-22-23-gruba-üye-ekleme)
   - [Adım 24: Group Policy Management Konsolu](#adım-24-group-policy-management-konsolu)
+- [DNS Kayıt Oluşturma](#-dns-kayıt-oluşturma)
 - [Kurulum Sonrası Öneriler](#-kurulum-sonrası-öneriler)
 - [En İyi Uygulamalar](#-en-i̇yi-uygulamalar)
 - [PowerShell ile Otomasyon](#-powershell-ile-otomasyon)
@@ -658,6 +659,60 @@ Backup-GPO -Name "Security - Workstation Policy" -Path "C:\GPOBackup"
 
 ---
 
+## 🌐 DNS Kayıt Oluşturma
+
+### Adım 25: DNS Manager'a Erişim
+
+![DNS Manager](Images/dns_manager.png)
+
+**DNS Manager Arayüzü:**
+- Sol panelde `Forward Lookup Zones` altında `serifselen.local` bölgesi bulunur.
+- Sağ panelde mevcut DNS kayıtları listelenir.
+- DNS sunucusu, AD DS kurulumu sırasında otomatik olarak kurulmuştur.
+
+✅ DNS Manager'ı açmak için **Start > Administrative Tools > DNS** yolunu takip edin veya Server Manager üzerinden `Tools > DNS` seçeneğini kullanın.
+
+---
+
+### Adım 26: Yeni Host (A) Kaydı Oluşturma
+
+![New Host Menu](Images/new_host_menu.png)
+
+**Yeni Kayıt Oluşturma:**
+1. `serifselen.local` bölgesine sağ tıklayın.
+2. **New Host (A or AAAA)...** seçeneğini seçin.
+
+✅ Bu işlem, belirtilen ana bilgisayar adına bir IP adresi eşleme oluşturur.
+
+---
+
+### Adım 27: Host Kayıt Bilgilerini Girme
+
+![New Host Dialog](Images/new_host_dialog.png)
+
+**Kayıt Detayları:**
+- **Name**: `web` (Ana bilgisayar adı)
+- **Fully qualified domain name (FQDN)**: `web.serifselen.local` (Otomatik oluşturulur)
+- **IP address**: `192.168.31.200` (Hedef sunucunun IP adresi)
+- **Create associated pointer (PTR) record**: Kutu işaretlenmelidir (Ters DNS çözümlemesi için)
+
+✅ Tüm bilgileri girdikten sonra **Add Host** butonuna tıklayın.
+
+---
+
+### Adım 28: Oluşturulan DNS Kaydını Doğrulama
+
+![DNS Records](Images/dns_records.png)
+
+**Kayıt Doğrulama:**
+- `serifselen.local` bölgesi altında yeni `Host (A)` kaydı (`web`) listelenir.
+- IP adresi `192.168.31.200` olarak görünür.
+- Kayıt tipi `static` olarak işaretlenmiştir.
+
+✅ DNS kaydı başarıyla oluşturuldu. Artık `web.serifselen.local` adıyla bu IP adresine erişilebilir.
+
+---
+
 ## 🔧 Kurulum Sonrası Öneriler
 
 ### 1. Sistem Sağlık Kontrolleri
@@ -815,4 +870,4 @@ auditpol /set /category:"Logon/Logoff" /success:enable /failure:enable
 > ⚠️ Bu doküman eğitim ve test ortamları için hazırlanmıştır. Üretimde lisanslı yazılım ve güvenlik önlemleri kullanılmalıdır.
 
 > 📧 **Destek İçin**: [mserifselen@gmail.com](mailto:mserifselen@gmail.com)  
-> 🔗 **GitHub Repository**: [https://github.com/serifselen/Active-Directory-ve-DNS-Kurulum  ]
+> 🔗 **GitHub Repository**: [https://github.com/serifselen/Active-Directory-ve-DNS-Kurulum    ]
