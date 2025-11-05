@@ -874,4 +874,4 @@ auditpol /set /category:"Logon/Logoff" /success:enable /failure:enable
 > ⚠️ Bu doküman eğitim ve test ortamları için hazırlanmıştır. Üretimde lisanslı yazılım ve güvenlik önlemleri kullanılmalıdır.
 
 > 📧 **Destek İçin**: [mserifselen@gmail.com](mailto:mserifselen@gmail.com)  
-> 🔗 **GitHub Repository**: [https://github.com/serifselen/Active-Directory-ve-DNS-Kurulum    ]
+> 🔗 **GitHub Repository**: [https://github.com/serifselen/]
